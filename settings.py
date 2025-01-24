@@ -21,9 +21,9 @@ YOUTUBE = 'YouTube'
 SOURCES_LIST = [IMAGE, VIDEO, WEBCAM, RTSP, YOUTUBE]
 
 # Images config
-IMAGES_DIR = ROOT / 'images'
-DEFAULT_IMAGE = IMAGES_DIR / 'office_4.jpg'
-DEFAULT_DETECT_IMAGE = IMAGES_DIR / 'office_4_detected.jpg'
+IMAGES_DIR = ROOT / 'test_images'
+DEFAULT_IMAGE = IMAGES_DIR / 'board_1.jpg'
+DEFAULT_DETECT_IMAGE = IMAGES_DIR / 'board_1.jpg'
 
 # Videos config
 VIDEO_DIR = ROOT / 'videos'
