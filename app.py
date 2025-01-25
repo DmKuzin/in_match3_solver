@@ -55,7 +55,7 @@ if source_radio == settings.IMAGE:
     source_img = st.sidebar.file_uploader(
         "Choose an image...", type=("jpg", "jpeg", "png", 'bmp', 'webp'))
 
-    col1, col2 = st.columns([1, 1], border=True)
+    col1, col2 = st.columns([1, 1])
 
     with col1:
         with st.container(height=300):  # Высота в пикселях
