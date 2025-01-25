@@ -18,23 +18,25 @@ st.set_page_config(
 )
 
 # Main page heading
-st.title("Object Detection And Tracking using YOLOv8")
+st.title("in match3 solver")
 
 # Sidebar
 st.sidebar.header("ML Model Config")
 
-# Model Options
-model_type = st.sidebar.radio(
-    "Select Task", ['Detection', 'Segmentation'])
+# # Model Options
+# model_type = st.sidebar.radio(
+#     "Select Task", ['Detection', 'Segmentation'])
 
 confidence = float(st.sidebar.slider(
     "Select Model Confidence", 25, 100, 40)) / 100
 
+# Get trained model path
+model_path = Path(settings.DETECTION_MODEL)
 # Selecting Detection Or Segmentation
-if model_type == 'Detection':
-    model_path = Path(settings.DETECTION_MODEL)
-elif model_type == 'Segmentation':
-    model_path = Path(settings.SEGMENTATION_MODEL)
+# if model_type == 'Detection':
+#     model_path = Path(settings.DETECTION_MODEL)
+# elif model_type == 'Segmentation':
+#     model_path = Path(settings.SEGMENTATION_MODEL)
 
 # Load Pre-trained ML Model
 try:
@@ -53,7 +55,7 @@ if source_radio == settings.IMAGE:
     source_img = st.sidebar.file_uploader(
         "Choose an image...", type=("jpg", "jpeg", "png", 'bmp', 'webp'))
 
-    col1, col2 = st.columns(2)
+    col1, col2 = st.columns([1, 1])
 
     with col1:
         try:
