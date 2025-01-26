@@ -78,4 +78,4 @@ def detect_images_in_grid(res, confidence_threshold=0.85):
         if class_name in class_mapping:
             grid[grid_y, grid_x] = class_mapping[class_name]
 
-    return grid
+    return str(grid)
