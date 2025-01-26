@@ -21,6 +21,6 @@ def get_next_move(grid_board, api_key="f91d8f74-61f3-4d3b-9b95-e4268d0e9f4e", mo
 
     # Обработка ответа
     if response.status_code == 200:
-        return response.json()
+        return response
     else:
         return {"error": f"Ошибка {response.status_code}: {response.text}"}
