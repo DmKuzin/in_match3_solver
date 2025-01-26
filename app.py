@@ -57,51 +57,51 @@ if source_radio == settings.IMAGE:
 
     col1, col2, col3 = st.columns([0.5, 0.5, 0.5])  # 50% ширины для каждой колонки
 
-    with col1:
-        with st.container(height=300):  # Высота в пикселях
-            st.write("Source image")
-            try:
-                if source_img is None:
-                    default_image_path = str(settings.DEFAULT_IMAGE)
-                    default_image = PIL.Image.open(default_image_path)
-                    st.image(default_image_path, caption="Default Image", width=300)  # Ограничиваем ширину
-                else:
-                    uploaded_image = PIL.Image.open(source_img)
-                    st.image(source_img, caption="Uploaded Image", width=300)  # Ограничиваем ширину
-            except Exception as ex:
-                st.error("Error occurred while opening the image.")
-                st.error(ex)
+    # Кнопка для запуска детекции
+    if st.sidebar.button('Detect Objects', key="detect_objects"):
+        # Только при нажатии кнопки будем проводить детекцию
+        if source_img is None:
+            st.write("No image uploaded for detection.")
+        else:
+            # Проводим детекцию на изображении
+            res = model.predict(uploaded_image, conf=confidence)
+            boxes = res[0].boxes
+            res_plotted = res[0].plot()[:, :, ::-1]
 
-    with col2:
-        with st.container(height=300):  # Высота в пикселях
-            if source_img is None:
-                st.write("Default image")
-                default_detected_image_path = str(settings.DEFAULT_DETECT_IMAGE)
-                default_detected_image = PIL.Image.open(default_detected_image_path)
-                st.image(default_detected_image_path, caption='Detected Image', width=300)  # Ограничиваем ширину
-            else:
-                if st.sidebar.button('Detect Objects', key="detect_button_col2"):
+            # Отображаем результаты в колонки
+            with col2:
+                with st.container(height=300):
                     st.write("Detected image")
-                    res = model.predict(uploaded_image, conf=confidence)
-                    boxes = res[0].boxes
-                    res_plotted = res[0].plot()[:, :, ::-1]
                     st.image(res_plotted, caption='Detected Image', width=300)  # Ограничиваем ширину
-                    try:
-                        with st.expander("Detection Results"):
-                            for box in boxes:
-                                st.write(box.data)
-                    except Exception as ex:
-                        st.write("No image is uploaded yet!")
+                    # Отображаем детекционные результаты как текст
+                    st.write("Detection Results:")
+                    for box in boxes:
+                        st.write(f"Class: {box.cls}, Confidence: {box.conf}, Coordinates: {box.xyxy}")
 
-    with col3:
-        with st.container(height=300):  # Высота в пикселях
-            if source_img is None:
-                st.write("Default image")
+            with col3:
+                with st.container(height=300):
+                    st.write("Detected image in col3")
+                    st.image(res_plotted, caption='Detected Image', width=300)  # Ограничиваем ширину
+                    # Отображаем детекционные результаты как текст
+                    st.write("Detection Results in col3:")
+                    for box in boxes:
+                        st.write(f"Class: {box.cls}, Confidence: {box.conf}, Coordinates: {box.xyxy}")
 
-            else:
-                if st.sidebar.button('Detect Objects', key="detect_button_col3"):
-                    st.write("Detected image")
-
+    else:
+        with col1:
+            with st.container(height=300):  # Высота в пикселях
+                st.write("Source image")
+                try:
+                    if source_img is None:
+                        default_image_path = str(settings.DEFAULT_IMAGE)
+                        default_image = PIL.Image.open(default_image_path)
+                        st.image(default_image_path, caption="Default Image", width=300)  # Ограничиваем ширину
+                    else:
+                        uploaded_image = PIL.Image.open(source_img)
+                        st.image(source_img, caption="Uploaded Image", width=300)  # Ограничиваем ширину
+                except Exception as ex:
+                    st.error("Error occurred while opening the image.")
+                    st.error(ex)
 
 elif source_radio == settings.VIDEO:
     helper.play_stored_video(confidence, model)
