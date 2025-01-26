@@ -96,7 +96,7 @@ if source_radio == settings.IMAGE:
                 with st.container(height=settings.CONTAINER_HEIGHT):
                     st.write("Result matrix")
                     # Вызываем функцию detect_images_in_grid для создания матрицы
-                    grid_board = make_matrix.detect_images_in_grid(res, confidence_threshold=0.85)
+                    grid_board = make_matrix.detect_images_in_grid(res, confidence_threshold=0.5)
                     st.text(grid_board)
     else:
         with col2:
