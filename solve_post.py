@@ -8,10 +8,12 @@ def get_next_move(grid_board, api_key="f91d8f74-61f3-4d3b-9b95-e4268d0e9f4e", mo
     url = "http://91.197.98.134:5000/get-next-move"
     headers = {"Content-Type": "application/json"}
 
+    # Преобразуем введенный грид в список
+    grid_data = json.loads(grid_board)
     # Подготовка данных для запроса
     data = {
         "api_key": api_key,
-        "grid": grid_board,
+        "grid": grid_data,
         "mode": mode,
         "is_easy_fight": is_easy_fight
     }
