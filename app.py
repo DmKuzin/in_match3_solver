@@ -46,7 +46,7 @@ if source_radio == settings.IMAGE:
     source_img = st.sidebar.file_uploader(
         "Choose an image...", type=("jpg", "jpeg", "png", 'bmp', 'webp'))
 
-    col1, col2, col3 = st.columns([0.5, 0.5, 0.5])  # 50% ширины для каждой колонки
+    col1, col2, col3 = st.columns([0.5, 0.5, 0.5], gap="medium")  # 50% ширины для каждой колонки
 
     # Контейнер для первой колонки с исходным изображением
     with col1:
