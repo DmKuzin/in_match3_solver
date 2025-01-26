@@ -86,18 +86,14 @@ if source_radio == settings.IMAGE:
                     # Результаты в выпадающем меню
                     with st.expander("Detection Results"):
                         for box in boxes:
-                            st.write(f"Class: {box.cls}, Confidence: {box.conf}, Coordinates: {box.xyxy}")
+                            class_id = int(box.cls)  # Номер класса
+                            class_name = model.names[class_id]  # Имя класса
+                            st.write(f"Class: {class_name}, Confidence: {box.conf}, Coordinates: {box.xyxy}")
 
             # Контейнер для третьей колонки с результатом детекции
             with col3:
                 with st.container(height=500):
-                    st.write("Detected image in col3")
-                    st.image(res_plotted, caption='Detected Image', width=300)  # Ограничиваем ширину
-
-                    # Результаты в выпадающем меню
-                    with st.expander("Detection Results in col3"):
-                        for box in boxes:
-                            st.write(f"Class: {box.cls}, Confidence: {box.conf}, Coordinates: {box.xyxy}")
+                    st.write("Result matrix")
 
     else:
         with col2:
