@@ -55,7 +55,7 @@ if source_radio == settings.IMAGE:
     source_img = st.sidebar.file_uploader(
         "Choose an image...", type=("jpg", "jpeg", "png", 'bmp', 'webp'))
 
-    col1, col2, col3 = st.columns(3, border=True)  # 50% ширины для каждой колонки
+    col1, col2, col3 = st.columns([0.5, 0.5, 0.5])  # 50% ширины для каждой колонки
 
     # Контейнер для первой колонки с исходным изображением
     with col1:
@@ -102,6 +102,14 @@ if source_radio == settings.IMAGE:
                     st.write("Detection Results in col3:")
                     for box in boxes:
                         st.write(f"Class: {box.cls}, Confidence: {box.conf}, Coordinates: {box.xyxy}")
+
+    else:
+        with col2:
+            with st.container(height=500):
+                st.write("Detected image")
+        with col3:
+            with st.container(height=500):
+                st.write("Detected image in col3")
 
 elif source_radio == settings.VIDEO:
     helper.play_stored_video(confidence, model)
