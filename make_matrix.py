@@ -43,39 +43,40 @@ def detect_images_in_grid(res, confidence_threshold=0.85):
             break
 
     if board_bbox is None:
-        raise ValueError("Рамка (board) не найдена в результатах детекции!")
+        #raise ValueError("Рамка (board) не найдена в результатах детекции!")
+        print("Рамка (board) не найдена в результатах детекции!")
 
-    # Получаем координаты рамки 'board'
-    board_x1, board_y1, board_x2, board_y2 = board_bbox
+    # # Проверяем, что рамка 'board' корректно задана
+    # if board_x1 >= board_x2 or board_y1 >= board_y2:
+    #     #raise ValueError("Рамка (board) имеет некорректные координаты!")
+    #     print("Рамка (board) имеет некорректные координаты!")
+    else:
+        # Получаем координаты рамки 'board'
+        board_x1, board_y1, board_x2, board_y2 = board_bbox
+        # Заполняем матрицу grid для объектов, находящихся внутри рамки
+        for i, (bbox, class_name, confidence) in enumerate(zip(bbox_list, class_names_list, confidence_list)):
+            if class_name == 'board' or confidence < confidence_threshold:
+                continue  # Пропускаем 'board' и объекты с низким confidence
 
-    # Проверяем, что рамка 'board' корректно задана
-    if board_x1 >= board_x2 or board_y1 >= board_y2:
-        raise ValueError("Рамка (board) имеет некорректные координаты!")
+            # Проверяем, что объект находится внутри рамки 'board'
+            x1, y1, x2, y2 = bbox
+            if x1 < board_x1 or y1 < board_y1 or x2 > board_x2 or y2 > board_y2:
+                continue  # Если объект выходит за рамки, пропускаем его
 
-    # Заполняем матрицу grid для объектов, находящихся внутри рамки
-    for i, (bbox, class_name, confidence) in enumerate(zip(bbox_list, class_names_list, confidence_list)):
-        if class_name == 'board' or confidence < confidence_threshold:
-            continue  # Пропускаем 'board' и объекты с низким confidence
+            # Находим центр объекта, чтобы определить его позицию в сетке 6x6
+            center_x = (x1 + x2) / 2
+            center_y = (y1 + y2) / 2
 
-        # Проверяем, что объект находится внутри рамки 'board'
-        x1, y1, x2, y2 = bbox
-        if x1 < board_x1 or y1 < board_y1 or x2 > board_x2 or y2 > board_y2:
-            continue  # Если объект выходит за рамки, пропускаем его
+            # Рассчитываем индекс в сетке 6x6
+            grid_x = int((center_x - board_x1) / (board_x2 - board_x1) * 6)
+            grid_y = int((center_y - board_y1) / (board_y2 - board_y1) * 6)
 
-        # Находим центр объекта, чтобы определить его позицию в сетке 6x6
-        center_x = (x1 + x2) / 2
-        center_y = (y1 + y2) / 2
+            # Ограничиваем индексы сетки от 0 до 5
+            grid_x = min(max(grid_x, 0), 5)
+            grid_y = min(max(grid_y, 0), 5)
 
-        # Рассчитываем индекс в сетке 6x6
-        grid_x = int((center_x - board_x1) / (board_x2 - board_x1) * 6)
-        grid_y = int((center_y - board_y1) / (board_y2 - board_y1) * 6)
-
-        # Ограничиваем индексы сетки от 0 до 5
-        grid_x = min(max(grid_x, 0), 5)
-        grid_y = min(max(grid_y, 0), 5)
-
-        # Записываем аббревиатуру класса в соответствующую ячейку матрицы
-        if class_name in class_mapping:
-            grid[grid_y, grid_x] = class_mapping[class_name]
+            # Записываем аббревиатуру класса в соответствующую ячейку матрицы
+            if class_name in class_mapping:
+                grid[grid_y, grid_x] = class_mapping[class_name]
 
     return grid
