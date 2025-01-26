@@ -55,11 +55,11 @@ if source_radio == settings.IMAGE:
     source_img = st.sidebar.file_uploader(
         "Choose an image...", type=("jpg", "jpeg", "png", 'bmp', 'webp'))
 
-    col1, col2, col3 = st.columns([0.5, 0.5, 0.5])  # 50% ширины для каждой колонки
+    col1, col2, col3 = st.columns([0.5, 0.5, 0.5], border=True)  # 50% ширины для каждой колонки
 
     # Контейнер для первой колонки с исходным изображением
     with col1:
-        with st.container(height=300):  # Высота в пикселях
+        with st.container(height=500):  # Высота в пикселях
             st.write("Source image")
             try:
                 if source_img is None:
@@ -85,7 +85,7 @@ if source_radio == settings.IMAGE:
 
             # Контейнер для второй колонки с результатом детекции
             with col2:
-                with st.container(height=300):
+                with st.container(height=500):
                     st.write("Detected image")
                     st.image(res_plotted, caption='Detected Image', width=300)  # Ограничиваем ширину
                     # Отображаем детекционные результаты как текст
@@ -95,7 +95,7 @@ if source_radio == settings.IMAGE:
 
             # Контейнер для третьей колонки с результатом детекции
             with col3:
-                with st.container(height=300):
+                with st.container(height=500):
                     st.write("Detected image in col3")
                     st.image(res_plotted, caption='Detected Image', width=300)  # Ограничиваем ширину
                     # Отображаем детекционные результаты как текст
