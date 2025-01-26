@@ -26,7 +26,7 @@ st.title("in match3 solver")
 
 # Sidebar
 st.sidebar.header("ML Model Config")
-st.sidebar.image(logo, width=300)
+st.sidebar.image(logo, width=150)
 
 confidence = float(st.sidebar.slider(
     "Select Model Confidence", 25, 100, 40)) / 100
