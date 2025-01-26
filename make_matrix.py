@@ -1,4 +1,5 @@
 import numpy as np
+import streamlit as st
 
 def detect_images_in_grid(res, confidence_threshold=0.85):
     # Маппинг имён классов на аббревиатуры
@@ -10,8 +11,8 @@ def detect_images_in_grid(res, confidence_threshold=0.85):
         'pentagon': 'y'  # 'y' для 'pentagon'
     }
 
-    # Ожидаемые классы (class_names)
-    object_classes = ['circle', 'pentagon', 'square', 'triangle_down', 'triangle_up']
+    # # Ожидаемые классы (class_names)
+    # object_classes = ['circle', 'pentagon', 'square', 'triangle_down', 'triangle_up']
 
     # Получаем результат из модели (res) - предполагаем, что это результат работы YOLOv8
     # Пример структуры: res.xywh (координаты bbox), res.cls (идентификаторы классов), res.conf (confidence)
@@ -44,7 +45,7 @@ def detect_images_in_grid(res, confidence_threshold=0.85):
 
     if board_bbox is None:
         #raise ValueError("Рамка (board) не найдена в результатах детекции!")
-        print("Рамка (board) не найдена в результатах детекции!")
+        st.error("Рамка (board) не найдена в результатах детекции!")
 
     # # Проверяем, что рамка 'board' корректно задана
     # if board_x1 >= board_x2 or board_y1 >= board_y2:
