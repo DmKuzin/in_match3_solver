@@ -8,6 +8,7 @@ import streamlit as st
 # Local Modules
 import settings
 import helper
+from make_matrix import detect_images_in_grid
 
 # Setting page layout
 st.set_page_config(
@@ -94,7 +95,9 @@ if source_radio == settings.IMAGE:
             with col3:
                 with st.container(height=settings.CONTAINER_HEIGHT):
                     st.write("Result matrix")
-
+                    # Вызываем функцию detect_images_in_grid для создания матрицы
+                    grid_board = detect_images_in_grid(res, confidence_threshold=0.85)
+                    st.text(grid_board)
     else:
         with col2:
             with st.container(height=settings.CONTAINER_HEIGHT):
