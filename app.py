@@ -11,7 +11,7 @@ import helper
 
 # Setting page layout
 st.set_page_config(
-    page_title="Object Detection using YOLOv8",
+    page_title="in match3 solver",
     page_icon="🤖",
     layout="wide",
     initial_sidebar_state="expanded"
@@ -55,10 +55,11 @@ if source_radio == settings.IMAGE:
     source_img = st.sidebar.file_uploader(
         "Choose an image...", type=("jpg", "jpeg", "png", 'bmp', 'webp'))
 
-    col1, col2 = st.columns([0.5, 0.5])  # 50% ширины для каждой колонки
+    col1, col2, col3 = st.columns([0.5, 0.5, 0.5])  # 50% ширины для каждой колонки
 
     with col1:
         with st.container(height=300):  # Высота в пикселях
+            st.write("Source image")
             try:
                 if source_img is None:
                     default_image_path = str(settings.DEFAULT_IMAGE)
@@ -74,11 +75,13 @@ if source_radio == settings.IMAGE:
     with col2:
         with st.container(height=300):  # Высота в пикселях
             if source_img is None:
+                st.write("Default image")
                 default_detected_image_path = str(settings.DEFAULT_DETECT_IMAGE)
                 default_detected_image = PIL.Image.open(default_detected_image_path)
                 st.image(default_detected_image_path, caption='Detected Image', width=300)  # Ограничиваем ширину
             else:
                 if st.sidebar.button('Detect Objects'):
+                    st.write("Detected image")
                     res = model.predict(uploaded_image, conf=confidence)
                     boxes = res[0].boxes
                     res_plotted = res[0].plot()[:, :, ::-1]
@@ -90,6 +93,15 @@ if source_radio == settings.IMAGE:
                     except Exception as ex:
                         st.write("No image is uploaded yet!")
 
+    with col3:
+        with st.container(height=300):  # Высота в пикселях
+            if source_img is None:
+                st.write("Default image")
+
+            else:
+                if st.sidebar.button('Detect Objects'):
+                    st.write("Detected image")
+
 
 elif source_radio == settings.VIDEO:
     helper.play_stored_video(confidence, model)
@@ -97,11 +109,11 @@ elif source_radio == settings.VIDEO:
 elif source_radio == settings.WEBCAM:
     helper.play_webcam(confidence, model)
 
-elif source_radio == settings.RTSP:
-    helper.play_rtsp_stream(confidence, model)
-
-elif source_radio == settings.YOUTUBE:
-    helper.play_youtube_video(confidence, model)
+# elif source_radio == settings.RTSP:
+#     helper.play_rtsp_stream(confidence, model)
+#
+# elif source_radio == settings.YOUTUBE:
+#     helper.play_youtube_video(confidence, model)
 
 else:
     st.error("Please select a valid source type!")
