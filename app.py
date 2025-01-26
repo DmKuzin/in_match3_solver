@@ -57,12 +57,23 @@ if source_radio == settings.IMAGE:
 
     col1, col2, col3 = st.columns([0.5, 0.5, 0.5])  # 50% ширины для каждой колонки
 
+    # Контейнер для первой колонки с исходным изображением
+    with col1:
+        with st.container(height=300):  # Высота в пикселях
+            st.write("Source image")
+            try:
+                if source_img is None:
+                    default_image_path = str(settings.DEFAULT_IMAGE)
+                    default_image = PIL.Image.open(default_image_path)
+                    st.image(default_image_path, caption="Default Image", width=300)  # Ограничиваем ширину
+                else:
+                    uploaded_image = PIL.Image.open(source_img)
+                    st.image(source_img, caption="Uploaded Image", width=300)  # Ограничиваем ширину
+            except Exception as ex:
+                st.error("Error occurred while opening the image.")
+                st.error(ex)
 
-    # Проверяем, если изображение загружено
-    if source_img is not None:
-        uploaded_image = PIL.Image.open(source_img)
-
-    # Кнопка для запуска детекции
+    # Проверка нажатия кнопки "Detect Objects"
     if st.sidebar.button('Detect Objects', key="detect_objects"):
         if source_img is None:
             st.write("No image uploaded for detection.")
@@ -72,7 +83,7 @@ if source_radio == settings.IMAGE:
             boxes = res[0].boxes
             res_plotted = res[0].plot()[:, :, ::-1]
 
-            # Отображаем результаты в колонки
+            # Контейнер для второй колонки с результатом детекции
             with col2:
                 with st.container(height=300):
                     st.write("Detected image")
@@ -82,6 +93,7 @@ if source_radio == settings.IMAGE:
                     for box in boxes:
                         st.write(f"Class: {box.cls}, Confidence: {box.conf}, Coordinates: {box.xyxy}")
 
+            # Контейнер для третьей колонки с результатом детекции
             with col3:
                 with st.container(height=300):
                     st.write("Detected image in col3")
@@ -90,22 +102,6 @@ if source_radio == settings.IMAGE:
                     st.write("Detection Results in col3:")
                     for box in boxes:
                         st.write(f"Class: {box.cls}, Confidence: {box.conf}, Coordinates: {box.xyxy}")
-
-    else:
-        with col1:
-            with st.container(height=300):  # Высота в пикселях
-                st.write("Source image")
-                try:
-                    if source_img is None:
-                        default_image_path = str(settings.DEFAULT_IMAGE)
-                        default_image = PIL.Image.open(default_image_path)
-                        st.image(default_image_path, caption="Default Image", width=300)  # Ограничиваем ширину
-                    else:
-                        uploaded_image = PIL.Image.open(source_img)
-                        st.image(source_img, caption="Uploaded Image", width=300)  # Ограничиваем ширину
-                except Exception as ex:
-                    st.error("Error occurred while opening the image.")
-                    st.error(ex)
 
 elif source_radio == settings.VIDEO:
     helper.play_stored_video(confidence, model)
