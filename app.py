@@ -57,9 +57,16 @@ if source_radio == settings.IMAGE:
 
     col1, col2, col3 = st.columns([0.5, 0.5, 0.5])  # 50% ширины для каждой колонки
 
+    # Загрузка изображения
+    if source_radio == settings.IMAGE:
+        source_img = st.sidebar.file_uploader("Choose an image...", type=("jpg", "jpeg", "png", 'bmp', 'webp'))
+
+        # Проверяем, если изображение загружено
+        if source_img is not None:
+            uploaded_image = PIL.Image.open(source_img)
+
     # Кнопка для запуска детекции
     if st.sidebar.button('Detect Objects', key="detect_objects"):
-        # Только при нажатии кнопки будем проводить детекцию
         if source_img is None:
             st.write("No image uploaded for detection.")
         else:
