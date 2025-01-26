@@ -80,7 +80,7 @@ if source_radio == settings.IMAGE:
                 default_detected_image = PIL.Image.open(default_detected_image_path)
                 st.image(default_detected_image_path, caption='Detected Image', width=300)  # Ограничиваем ширину
             else:
-                if st.sidebar.button('Detect Objects'):
+                if st.sidebar.button('Detect Objects', key="detect_button_col2"):
                     st.write("Detected image")
                     res = model.predict(uploaded_image, conf=confidence)
                     boxes = res[0].boxes
@@ -99,7 +99,7 @@ if source_radio == settings.IMAGE:
                 st.write("Default image")
 
             else:
-                if st.sidebar.button('Detect Objects'):
+                if st.sidebar.button('Detect Objects', key="detect_button_col3"):
                     st.write("Detected image")
 
 
