@@ -9,6 +9,7 @@ import streamlit as st
 import settings
 import helper
 import make_matrix
+import solve_post
 
 # Setting page layout
 st.set_page_config(
@@ -98,6 +99,14 @@ if source_radio == settings.IMAGE:
                     # Вызываем функцию detect_images_in_grid для создания матрицы
                     grid_board = make_matrix.detect_images_in_grid(res, confidence_threshold=0.5)
                     st.text(grid_board)
+
+                    # Вызываем функцию solve с передачей grid_board
+                    st.write("Requesting next move...")
+                    result = solve_post.get_next_move(grid_board)  # Вызов функции solve с переданным grid_board
+
+                    # Отображаем результат от функции solve
+                    st.subheader("Ответ от сервера:")
+                    st.json(result)
     else:
         with col2:
             with st.container(height=settings.CONTAINER_HEIGHT):
