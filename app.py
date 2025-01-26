@@ -106,7 +106,7 @@ if source_radio == settings.IMAGE:
 
                     # Отображаем результат от функции solve
                     st.subheader("Ответ от сервера:")
-                    st.json(result)
+                    st.text(result)
     else:
         with col2:
             with st.container(height=settings.CONTAINER_HEIGHT):
