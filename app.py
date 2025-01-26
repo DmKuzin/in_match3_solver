@@ -22,12 +22,13 @@ st.set_page_config(
 )
 
 # Main page heading
-st.title("in match3 solver")
+#st.title("in match3 solver")
 
 # Sidebar
-st.sidebar.header("ML Model Config")
+st.sidebar.markdown('<h1 style="text-align: center;">-- IN MATCH 3 --</h1>', unsafe_allow_html=True)
 st.sidebar.image(logo, width=150)
 
+st.sidebar.header("ML Model Config")
 confidence = float(st.sidebar.slider(
     "Select Model Confidence", 25, 100, 40)) / 100
 
