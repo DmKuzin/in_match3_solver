@@ -50,18 +50,18 @@ if source_radio == settings.IMAGE:
 
     # Контейнер для первой колонки с исходным изображением
     with col1:
-        with st.container(height=500):  # Высота в пикселях
+        with st.container(height=settings.CONTAINER_HEIGHT):  # Высота в пикселях
             st.write("Source image")
             try:
                 # Если изображение загружено
                 if source_img is not None:
                     uploaded_image = PIL.Image.open(source_img)
-                    st.image(source_img, caption="Uploaded Image", width=300)  # Ограничиваем ширину
+                    st.image(source_img, caption="Uploaded Image", width=settings.IMAGE_WIDTH)  # Ограничиваем ширину
                 else:
                     # Если изображение не загружено, показываем изображение по умолчанию
                     default_image_path = str(settings.DEFAULT_IMAGE)
                     default_image = PIL.Image.open(default_image_path)
-                    st.image(default_image_path, caption="Default Image", width=300)  # Ограничиваем ширину
+                    st.image(default_image_path, caption="Default Image", width=settings.IMAGE_WIDTH)  # Ограничиваем ширину
                     uploaded_image = default_image  # Устанавливаем default_image как входное изображение
             except Exception as ex:
                 st.error("Error occurred while opening the image.")
@@ -79,9 +79,9 @@ if source_radio == settings.IMAGE:
 
             # Контейнер для второй колонки с результатом детекции
             with col2:
-                with st.container(height=500):
+                with st.container(height=settings.CONTAINER_HEIGHT):
                     st.write("Detected image")
-                    st.image(res_plotted, caption='Detected Image', width=300)  # Ограничиваем ширину
+                    st.image(res_plotted, caption='Detected Image', width=settings.IMAGE_WIDTH)  # Ограничиваем ширину
 
                     # Результаты в выпадающем меню
                     with st.expander("Detection Results"):
@@ -92,15 +92,15 @@ if source_radio == settings.IMAGE:
 
             # Контейнер для третьей колонки с результатом детекции
             with col3:
-                with st.container(height=500):
+                with st.container(height=settings.CONTAINER_HEIGHT):
                     st.write("Result matrix")
 
     else:
         with col2:
-            with st.container(height=500):
+            with st.container(height=settings.CONTAINER_HEIGHT):
                 st.write("Detected image")
         with col3:
-            with st.container(height=500):
+            with st.container(height=settings.CONTAINER_HEIGHT):
                 st.write("Detected image in col3")
 
 elif source_radio == settings.VIDEO:
