@@ -25,6 +25,7 @@ SOURCES_LIST = [IMAGE, VIDEO, WEBCAM]
 IMAGES_DIR = ROOT / 'test_images'
 DEFAULT_IMAGE = IMAGES_DIR / 'board_1.jpg'
 DEFAULT_DETECT_IMAGE = IMAGES_DIR / 'board_1.jpg'
+APP_LOGO_PATH = 'logo/in_match_logo.webp'
 
 # Videos config
 VIDEO_DIR = ROOT / 'videos'

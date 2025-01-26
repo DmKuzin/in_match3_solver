@@ -11,6 +11,8 @@ import helper
 import make_matrix
 import solve_post
 
+logo = settings.APP_LOGO_PATH
+
 # Setting page layout
 st.set_page_config(
     page_title="in match3 solver",
@@ -24,6 +26,7 @@ st.title("in match3 solver")
 
 # Sidebar
 st.sidebar.header("ML Model Config")
+st.sidebar.image(logo, width=300)
 
 confidence = float(st.sidebar.slider(
     "Select Model Confidence", 25, 100, 40)) / 100
