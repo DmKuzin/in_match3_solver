@@ -23,20 +23,11 @@ st.title("in match3 solver")
 # Sidebar
 st.sidebar.header("ML Model Config")
 
-# # Model Options
-# model_type = st.sidebar.radio(
-#     "Select Task", ['Detection', 'Segmentation'])
-
 confidence = float(st.sidebar.slider(
     "Select Model Confidence", 25, 100, 40)) / 100
 
 # Get trained model path
 model_path = Path(settings.DETECTION_MODEL)
-# Selecting Detection Or Segmentation
-# if model_type == 'Detection':
-#     model_path = Path(settings.DETECTION_MODEL)
-# elif model_type == 'Segmentation':
-#     model_path = Path(settings.SEGMENTATION_MODEL)
 
 # Load Pre-trained ML Model
 try:
@@ -62,20 +53,23 @@ if source_radio == settings.IMAGE:
         with st.container(height=500):  # Высота в пикселях
             st.write("Source image")
             try:
-                if source_img is None:
+                # Если изображение загружено
+                if source_img is not None:
+                    uploaded_image = PIL.Image.open(source_img)
+                    st.image(source_img, caption="Uploaded Image", width=300)  # Ограничиваем ширину
+                else:
+                    # Если изображение не загружено, показываем изображение по умолчанию
                     default_image_path = str(settings.DEFAULT_IMAGE)
                     default_image = PIL.Image.open(default_image_path)
                     st.image(default_image_path, caption="Default Image", width=300)  # Ограничиваем ширину
-                else:
-                    uploaded_image = PIL.Image.open(source_img)
-                    st.image(source_img, caption="Uploaded Image", width=300)  # Ограничиваем ширину
+                    uploaded_image = default_image  # Устанавливаем default_image как входное изображение
             except Exception as ex:
                 st.error("Error occurred while opening the image.")
                 st.error(ex)
 
     # Проверка нажатия кнопки "Detect Objects"
     if st.sidebar.button('Detect Objects', key="detect_objects"):
-        if source_img is None:
+        if uploaded_image is None:
             st.write("No image uploaded for detection.")
         else:
             # Проводим детекцию на изображении
@@ -88,20 +82,22 @@ if source_radio == settings.IMAGE:
                 with st.container(height=500):
                     st.write("Detected image")
                     st.image(res_plotted, caption='Detected Image', width=300)  # Ограничиваем ширину
-                    # Отображаем детекционные результаты как текст
-                    st.write("Detection Results:")
-                    for box in boxes:
-                        st.write(f"Class: {box.cls}, Confidence: {box.conf}, Coordinates: {box.xyxy}")
+
+                    # Результаты в выпадающем меню
+                    with st.expander("Detection Results"):
+                        for box in boxes:
+                            st.write(f"Class: {box.cls}, Confidence: {box.conf}, Coordinates: {box.xyxy}")
 
             # Контейнер для третьей колонки с результатом детекции
             with col3:
                 with st.container(height=500):
                     st.write("Detected image in col3")
                     st.image(res_plotted, caption='Detected Image', width=300)  # Ограничиваем ширину
-                    # Отображаем детекционные результаты как текст
-                    st.write("Detection Results in col3:")
-                    for box in boxes:
-                        st.write(f"Class: {box.cls}, Confidence: {box.conf}, Coordinates: {box.xyxy}")
+
+                    # Результаты в выпадающем меню
+                    with st.expander("Detection Results in col3"):
+                        for box in boxes:
+                            st.write(f"Class: {box.cls}, Confidence: {box.conf}, Coordinates: {box.xyxy}")
 
     else:
         with col2:
@@ -116,12 +112,6 @@ elif source_radio == settings.VIDEO:
 
 elif source_radio == settings.WEBCAM:
     helper.play_webcam(confidence, model)
-
-# elif source_radio == settings.RTSP:
-#     helper.play_rtsp_stream(confidence, model)
-#
-# elif source_radio == settings.YOUTUBE:
-#     helper.play_youtube_video(confidence, model)
 
 else:
     st.error("Please select a valid source type!")
