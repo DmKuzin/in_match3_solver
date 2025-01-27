@@ -128,7 +128,7 @@ if source_radio == settings.IMAGE:
     else:
         with col2:
             #with st.container(height=settings.CONTAINER_HEIGHT):
-            with st.container(height=None):  # Высота в пикселях
+            with st.container(height=None, border=True):  # Высота в пикселях
                 st.write("Detected image")
         with col3:
             #with st.container(height=settings.CONTAINER_HEIGHT):
