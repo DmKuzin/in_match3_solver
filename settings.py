@@ -18,6 +18,8 @@ WEBCAM = 'Webcam'
 #RTSP = 'RTSP'
 #YOUTUBE = 'YouTube'
 
+STRATEGY_MOD_LIST = ['gather', 'pvp', 'pve']
+FIGHT_MOD_LIST = ['True', 'False']
 #SOURCES_LIST = [IMAGE, VIDEO, WEBCAM, RTSP, YOUTUBE]
 SOURCES_LIST = [IMAGE, VIDEO, WEBCAM]
 

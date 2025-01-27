@@ -35,6 +35,13 @@ model_confidence = float(st.sidebar.slider(
 matrix_confidence = float(st.sidebar.slider(
     "Select Result matrix Confidence", 25, 100, 40)) / 100
 
+st.sidebar.header("Solver config")
+strategy_radio = st.sidebar.radio(
+    "Strategy mode", settings.STRATEGY_MOD_LIST)
+
+fight_radio = st.sidebar.radio(
+    "Is easy fight", settings.FIGHT_MOD_LIST)
+
 # Get trained model path
 model_path = Path(settings.DETECTION_MODEL)
 
