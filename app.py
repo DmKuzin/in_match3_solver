@@ -25,32 +25,33 @@ st.set_page_config(
 #st.title("in match3 solver")
 
 # Sidebar
-with st.sidebar.container(border=True):
-    st.sidebar.markdown('<h1 style="text-align: center;">-- IN MATCH 3 --</h1>', unsafe_allow_html=True)
-    st.sidebar.image(logo, width=150)
+
+st.sidebar.markdown('<h1 style="text-align: center;">-- IN MATCH 3 --</h1>', unsafe_allow_html=True)
+st.sidebar.image(logo, width=150)
 
 st.sidebar.divider()
 
-with st.sidebar.container():
-    st.sidebar.header("ML Model Config")
-    model_confidence = float(st.sidebar.slider(
-        "Select Model Confidence", 25, 100, 40)) / 100
+st.sidebar.header("ML Model Config")
+model_confidence = float(st.sidebar.slider(
+    "Select Model Confidence", 25, 100, 40)) / 100
 
-    matrix_confidence = float(st.sidebar.slider(
-        "Select Result matrix Confidence", 25, 100, 40)) / 100
+matrix_confidence = float(st.sidebar.slider(
+    "Select Result matrix Confidence", 25, 100, 40)) / 100
 
-with st.sidebar.container():
-    st.sidebar.header("Solver config")
-    strategy_mode = st.sidebar.radio(
-        "Strategy mode", settings.STRATEGY_MOD_LIST)
+st.sidebar.divider()
 
-    fight_mode = st.sidebar.radio(
-        "Is easy fight", settings.FIGHT_MOD_LIST)
+st.sidebar.header("Solver config")
+strategy_mode = st.sidebar.radio(
+    "Strategy mode", settings.STRATEGY_MOD_LIST)
 
-with st.sidebar.container():
-    st.sidebar.header("Image/Video Config")
-    source_radio = st.sidebar.radio(
-        "Select Source", settings.SOURCES_LIST)
+fight_mode = st.sidebar.radio(
+    "Is easy fight", settings.FIGHT_MOD_LIST)
+
+st.sidebar.divider()
+
+st.sidebar.header("Image/Video Config")
+source_radio = st.sidebar.radio(
+    "Select Source", settings.SOURCES_LIST)
 
 # Get trained model path
 model_path = Path(settings.DETECTION_MODEL)
