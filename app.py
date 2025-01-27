@@ -36,10 +36,10 @@ matrix_confidence = float(st.sidebar.slider(
     "Select Result matrix Confidence", 25, 100, 40)) / 100
 
 st.sidebar.header("Solver config")
-strategy_radio = st.sidebar.radio(
+strategy_mode = st.sidebar.radio(
     "Strategy mode", settings.STRATEGY_MOD_LIST)
 
-fight_radio = st.sidebar.radio(
+fight_mode = st.sidebar.radio(
     "Is easy fight", settings.FIGHT_MOD_LIST)
 
 # Get trained model path
@@ -116,9 +116,8 @@ if source_radio == settings.IMAGE:
 
                     # Вызываем функцию solve с передачей grid_board
                     st.write("Requesting next move...")
-                    st.write(strategy_radio)
-                    st.write(fight_radio)
-                    result = solve_post.get_next_move(grid_board)  # Вызов функции solve с переданным grid_board
+
+                    result = solve_post.get_next_move(grid_board, mode=strategy_mode, is_easy_fight=fight_mode)  # Вызов функции solve с переданным grid_board
 
                     # Отображаем результат от функции solve
                     st.subheader("Ответ от сервера:")
