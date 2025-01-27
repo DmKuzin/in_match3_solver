@@ -29,8 +29,11 @@ st.sidebar.markdown('<h1 style="text-align: center;">-- IN MATCH 3 --</h1>', uns
 st.sidebar.image(logo, width=150)
 
 st.sidebar.header("ML Model Config")
-confidence = float(st.sidebar.slider(
+model_confidence = float(st.sidebar.slider(
     "Select Model Confidence", 25, 100, 40)) / 100
+
+matrix_confidence = float(st.sidebar.slider(
+    "Select Result matrix Confidence", 25, 100, 40)) / 100
 
 # Get trained model path
 model_path = Path(settings.DETECTION_MODEL)
@@ -79,7 +82,7 @@ if source_radio == settings.IMAGE:
             st.write("No image uploaded for detection.")
         else:
             # Проводим детекцию на изображении
-            res = model.predict(uploaded_image, conf=confidence)
+            res = model.predict(uploaded_image, conf=model_confidence)
             boxes = res[0].boxes
             res_plotted = res[0].plot()[:, :, ::-1]
 
@@ -101,7 +104,7 @@ if source_radio == settings.IMAGE:
                 with st.container(height=settings.CONTAINER_HEIGHT):
                     st.write("Result matrix")
                     # Вызываем функцию detect_images_in_grid для создания матрицы
-                    grid_board = make_matrix.detect_images_in_grid(res, confidence_threshold=0.5)
+                    grid_board = make_matrix.detect_images_in_grid(res, confidence_threshold=matrix_confidence)
                     st.text(grid_board)
 
                     # Вызываем функцию solve с передачей grid_board
@@ -120,10 +123,10 @@ if source_radio == settings.IMAGE:
                 st.write("Detected image in col3")
 
 elif source_radio == settings.VIDEO:
-    helper.play_stored_video(confidence, model)
+    helper.play_stored_video(model_confidence, model)
 
 elif source_radio == settings.WEBCAM:
-    helper.play_webcam(confidence, model)
+    helper.play_webcam(model_confidence, model)
 
 else:
     st.error("Please select a valid source type!")
