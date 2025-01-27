@@ -29,8 +29,6 @@ st.set_page_config(
 st.sidebar.markdown('<h1 style="text-align: center;">-- IN MATCH 3 --</h1>', unsafe_allow_html=True)
 st.sidebar.image(logo, width=150)
 
-st.sidebar.divider()
-
 st.sidebar.header("ML Model Config")
 model_confidence = float(st.sidebar.slider(
     "Select Model Confidence", 25, 100, 40)) / 100
