@@ -25,22 +25,30 @@ st.set_page_config(
 #st.title("in match3 solver")
 
 # Sidebar
-st.sidebar.markdown('<h1 style="text-align: center;">-- IN MATCH 3 --</h1>', unsafe_allow_html=True)
-st.sidebar.image(logo, width=150)
+with st.sidebar.container():
+    st.sidebar.markdown('<h1 style="text-align: center;">-- IN MATCH 3 --</h1>', unsafe_allow_html=True)
+    st.sidebar.image(logo, width=150)
 
-st.sidebar.header("ML Model Config")
-model_confidence = float(st.sidebar.slider(
-    "Select Model Confidence", 25, 100, 40)) / 100
+with st.sidebar.container():
+    st.sidebar.header("ML Model Config")
+    model_confidence = float(st.sidebar.slider(
+        "Select Model Confidence", 25, 100, 40)) / 100
 
-matrix_confidence = float(st.sidebar.slider(
-    "Select Result matrix Confidence", 25, 100, 40)) / 100
+    matrix_confidence = float(st.sidebar.slider(
+        "Select Result matrix Confidence", 25, 100, 40)) / 100
 
-st.sidebar.header("Solver config")
-strategy_mode = st.sidebar.radio(
-    "Strategy mode", settings.STRATEGY_MOD_LIST)
+with st.sidebar.container():
+    st.sidebar.header("Solver config")
+    strategy_mode = st.sidebar.radio(
+        "Strategy mode", settings.STRATEGY_MOD_LIST)
 
-fight_mode = st.sidebar.radio(
-    "Is easy fight", settings.FIGHT_MOD_LIST)
+    fight_mode = st.sidebar.radio(
+        "Is easy fight", settings.FIGHT_MOD_LIST)
+
+with st.sidebar.container():
+    st.sidebar.header("Image/Video Config")
+    source_radio = st.sidebar.radio(
+        "Select Source", settings.SOURCES_LIST)
 
 # Get trained model path
 model_path = Path(settings.DETECTION_MODEL)
@@ -51,10 +59,6 @@ try:
 except Exception as ex:
     st.error(f"Unable to load model. Check the specified path: {model_path}")
     st.error(ex)
-
-st.sidebar.header("Image/Video Config")
-source_radio = st.sidebar.radio(
-    "Select Source", settings.SOURCES_LIST)
 
 source_img = None
 # If image is selected
