@@ -50,5 +50,5 @@ DETECTION_MODEL = MODEL_DIR / 'yolov8n.pt'
 WEBCAM_PATH = 0
 
 # Container and Image Configurations
-CONTAINER_HEIGHT = 400  # Set the container height in pixels
+CONTAINER_HEIGHT = 600  # Set the container height in pixels
 IMAGE_WIDTH = 300  # Set the width of images
