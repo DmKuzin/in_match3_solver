@@ -73,12 +73,12 @@ if source_radio == settings.IMAGE:
                 # Если изображение загружено
                 if source_img is not None:
                     uploaded_image = PIL.Image.open(source_img)
-                    st.image(source_img, caption="Uploaded Image", width=settings.IMAGE_WIDTH)  # Ограничиваем ширину
+                    st.image(source_img, caption=None, width=settings.IMAGE_WIDTH)  # Ограничиваем ширину
                 else:
                     # Если изображение не загружено, показываем изображение по умолчанию
                     default_image_path = str(settings.DEFAULT_IMAGE)
                     default_image = PIL.Image.open(default_image_path)
-                    st.image(default_image_path, caption="Default Image", width=settings.IMAGE_WIDTH)  # Ограничиваем ширину
+                    st.image(default_image_path, caption=None, width=settings.IMAGE_WIDTH)  # Ограничиваем ширину
                     uploaded_image = default_image  # Устанавливаем default_image как входное изображение
             except Exception as ex:
                 st.error("Error occurred while opening the image.")
@@ -99,7 +99,7 @@ if source_radio == settings.IMAGE:
                 #with st.container(height=settings.CONTAINER_HEIGHT):
                 with st.container(height=None):  # Высота в пикселях
                     st.write("Detected image")
-                    st.image(res_plotted, caption='Detected Image', width=settings.IMAGE_WIDTH)  # Ограничиваем ширину
+                    st.image(res_plotted, caption=None, width=settings.IMAGE_WIDTH)  # Ограничиваем ширину
 
                     # Результаты в выпадающем меню
                     with st.expander("Detection Results"):
@@ -133,7 +133,7 @@ if source_radio == settings.IMAGE:
         with col3:
             #with st.container(height=settings.CONTAINER_HEIGHT):
             with st.container(height=None):  # Высота в пикселях
-                st.write("Detected image in col3")
+                st.write("Result matrix")
 
 elif source_radio == settings.VIDEO:
     helper.play_stored_video(model_confidence, model)
