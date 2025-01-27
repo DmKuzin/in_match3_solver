@@ -116,6 +116,8 @@ if source_radio == settings.IMAGE:
 
                     # Вызываем функцию solve с передачей grid_board
                     st.write("Requesting next move...")
+                    st.write(strategy_radio)
+                    st.write(fight_radio)
                     result = solve_post.get_next_move(grid_board)  # Вызов функции solve с переданным grid_board
 
                     # Отображаем результат от функции solve
