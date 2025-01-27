@@ -16,7 +16,7 @@ logo = settings.APP_LOGO_PATH
 # Setting page layout
 st.set_page_config(
     page_title="in match3 solver",
-    page_icon="🤖",
+    page_icon=logo,
     layout="wide",
     initial_sidebar_state="expanded"
 )
