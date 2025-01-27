@@ -25,7 +25,7 @@ st.set_page_config(
 #st.title("in match3 solver")
 
 # Sidebar
-with st.sidebar.container():
+with st.sidebar.container(border=True):
     st.sidebar.markdown('<h1 style="text-align: center;">-- IN MATCH 3 --</h1>', unsafe_allow_html=True)
     st.sidebar.image(logo, width=150)
 
