@@ -29,6 +29,8 @@ with st.sidebar.container(border=True):
     st.sidebar.markdown('<h1 style="text-align: center;">-- IN MATCH 3 --</h1>', unsafe_allow_html=True)
     st.sidebar.image(logo, width=150)
 
+st.sidebar.divider()
+
 with st.sidebar.container():
     st.sidebar.header("ML Model Config")
     model_confidence = float(st.sidebar.slider(
