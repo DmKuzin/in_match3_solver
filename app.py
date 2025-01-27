@@ -67,7 +67,7 @@ if source_radio == settings.IMAGE:
     # Контейнер для первой колонки с исходным изображением
     with col1:
         #with st.container(height=settings.CONTAINER_HEIGHT):  # Высота в пикселях
-        with st.container(height=None):  # Высота в пикселях
+        with st.container(height=None, border=True):  # Высота в пикселях
             st.write("Source image")
             try:
                 # Если изображение загружено
@@ -97,7 +97,7 @@ if source_radio == settings.IMAGE:
             # Контейнер для второй колонки с результатом детекции
             with col2:
                 #with st.container(height=settings.CONTAINER_HEIGHT):
-                with st.container(height=None):  # Высота в пикселях
+                with st.container(height=None, border=True):  # Высота в пикселях
                     st.write("Detected image")
                     st.image(res_plotted, caption=None, width=settings.IMAGE_WIDTH)  # Ограничиваем ширину
 
@@ -111,7 +111,7 @@ if source_radio == settings.IMAGE:
             # Контейнер для третьей колонки с результатом детекции
             with col3:
                 #with st.container(height=settings.CONTAINER_HEIGHT):
-                with st.container(height=None):  # Высота в пикселях
+                with st.container(height=None, border=True):  # Высота в пикселях
                     st.write("Result matrix")
                     # Вызываем функцию detect_images_in_grid для создания матрицы
                     grid_board = make_matrix.detect_images_in_grid(res, confidence_threshold=matrix_confidence)
@@ -132,7 +132,7 @@ if source_radio == settings.IMAGE:
                 st.write("Detected image")
         with col3:
             #with st.container(height=settings.CONTAINER_HEIGHT):
-            with st.container(height=None):  # Высота в пикселях
+            with st.container(height=None, border=True):  # Высота в пикселях
                 st.write("Result matrix")
 
 elif source_radio == settings.VIDEO:
