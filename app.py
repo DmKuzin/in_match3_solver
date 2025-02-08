@@ -94,18 +94,22 @@ if source_radio == settings.IMAGE:
         if uploaded_image is None:
             st.write("No image uploaded for detection.")
         else:
+            # Сохраняем исходный размер изображения
+            original_size = uploaded_image.size
             # Проводим детекцию на изображении
             uploaded_image_rsz = uploaded_image.resize((640, 640))
             res = model.predict(uploaded_image_rsz, imgsz=640, conf=model_confidence)
             boxes = res[0].boxes
             res_plotted = res[0].plot()[:, :, ::-1]
+            # Возвращаем изображение с результатами на исходный размер
+            res_plotted_resized = PIL.Image.fromarray(res_plotted).resize(original_size)
 
             # Контейнер для второй колонки с результатом детекции
             with col2:
                 #with st.container(height=settings.CONTAINER_HEIGHT):
                 with st.container(height=None, border=True):  # Высота в пикселях
                     st.write("Detected image")
-                    st.image(res_plotted, caption=None, width=settings.IMAGE_WIDTH)  # Ограничиваем ширину
+                    st.image(res_plotted_resized, caption=None, width=settings.IMAGE_WIDTH)  # Ограничиваем ширину
 
                     # Результаты в выпадающем меню
                     with st.expander("Detection Results"):
