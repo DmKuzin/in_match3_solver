@@ -95,7 +95,8 @@ if source_radio == settings.IMAGE:
             st.write("No image uploaded for detection.")
         else:
             # Проводим детекцию на изображении
-            res = model.predict(uploaded_image, imgsz=640, conf=model_confidence)
+            uploaded_image_rsz = uploaded_image.resize((640, 640))
+            res = model.predict(uploaded_image_rsz, imgsz=640, conf=model_confidence)
             boxes = res[0].boxes
             res_plotted = res[0].plot()[:, :, ::-1]
 
